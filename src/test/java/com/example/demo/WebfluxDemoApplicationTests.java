@@ -11,6 +11,7 @@ public class WebfluxDemoApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		
 	}
 
 }

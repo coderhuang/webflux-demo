@@ -11,8 +11,6 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 
 /**
  * 
- * @author huangzhongjun
- *
  * @param <T>
  */
 public class IntegerBaseEnumDeserializer<T extends IntegerBaseEnum> extends JsonDeserializer<T> {

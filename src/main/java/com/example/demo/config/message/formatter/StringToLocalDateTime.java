@@ -7,10 +7,6 @@ import org.springframework.core.convert.converter.Converter;
 
 import com.example.demo.utils.LocalDateTimeUtils;
 
-/**
- * @author huangzhongjun
- *
- */
 public class StringToLocalDateTime implements Converter<String, LocalDateTime> {
 
 	@Override

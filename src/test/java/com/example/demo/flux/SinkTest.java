@@ -15,8 +15,6 @@ import reactor.core.scheduler.Schedulers;
 
 /**
  * 
- * @author huangzhongjun
- *
  */
 public class SinkTest {
 

@@ -5,10 +5,6 @@ import java.time.LocalDate;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.convert.converter.Converter;
 
-/**
- * @author huangzhongjun
- *
- */
 public class StringToLocalDate implements Converter<String, LocalDate> {
 
 	@Override

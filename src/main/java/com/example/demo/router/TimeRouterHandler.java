@@ -14,11 +14,6 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.example.demo.processor.TimeProcessor;
 
-/**
- * 
- * @author huangzhongjun
- *
- */
 @Configuration
 public class TimeRouterHandler {
 

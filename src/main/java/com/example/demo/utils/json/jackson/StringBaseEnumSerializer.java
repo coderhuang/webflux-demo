@@ -9,8 +9,6 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 /**
  * 
- * @author huangzhongjun
- *
  * @param <T>
  */
 public class StringBaseEnumSerializer<T extends StringBaseEnum> extends JsonSerializer<T> {

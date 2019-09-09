@@ -7,10 +7,6 @@ import org.springframework.core.convert.converter.ConverterFactory;
 import com.example.demo.type.IntegerBaseEnum;
 
 
-/**
- * @author huangzhongjun
- *
- */
 public class StringToIntegerBaseEnumFactory implements ConverterFactory<String, IntegerBaseEnum> {
 
 	@Override

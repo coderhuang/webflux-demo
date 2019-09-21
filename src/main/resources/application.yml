@@ -5,3 +5,17 @@ server:
     context-path: /
   compression:
     enabled: true
+    
+spring:
+  application:
+    name: toby-flux-demo
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3406/toby_db?tinyInt1isBit=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: 123456
+    connection-test-query: SELECT 1 FROM DUAL
+    minimum-idle: 3
+    maximum-pool-size: 24
+    idle-timeout: 10000
+    leak-detection-threshold: 2000

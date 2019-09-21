@@ -14,7 +14,7 @@ public abstract class AbstractIntegerBaseEnumType<T extends IntegerBaseEnum> ext
 
 	public AbstractIntegerBaseEnumType(Class<T> clazz) {
 		
-		super(Types.INTEGER);
+		super(Types.TINYINT);
 		this.clazz = clazz;
 	}
 

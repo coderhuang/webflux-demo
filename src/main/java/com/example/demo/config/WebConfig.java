@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.codec.ServerCodecConfigurer;
@@ -67,7 +68,8 @@ public class WebConfig implements WebFluxConfigurer {
 		configurer.defaultCodecs().jackson2JsonDecoder(new Jackson2JsonDecoder(objectMapper));
 	}
 	
-	private ObjectMapper initObjectMapper() {
+	@Bean
+	public ObjectMapper initObjectMapper() {
 		
 //		var objectMapper = new ObjectMapper();
 		var objectMapper = Jackson2ObjectMapperBuilder.json().build();

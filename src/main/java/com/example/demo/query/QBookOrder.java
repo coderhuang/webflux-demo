@@ -2,6 +2,7 @@ package com.example.demo.query;
 
 import static com.querydsl.core.types.PathMetadataFactory.forVariable;
 
+import java.math.BigDecimal;
 import java.sql.Types;
 import java.time.LocalDateTime;
 
@@ -21,33 +22,41 @@ public class QBookOrder extends RelationalPathBase<BookOrder> {
 
 	private static final long serialVersionUID = -5144198673954457252L;
 
-	public static final QBookOrder bookOrder = new QBookOrder("book_order");
+	public static final QBookOrder BOOK_ORDER = new QBookOrder("book_order");
 
 	public final NumberPath<Long> id = createNumber("id", Long.class);
 
 	public final com.querydsl.sql.PrimaryKey<BookOrder> primary = createPrimaryKey(id);
 
-	public final StringPath name = createString("name");
-
 	public final NumberPath<Integer> no = createNumber("no", Integer.class);
 
-	public final DateTimePath<LocalDateTime> publishTime = createDateTime("publish_time", LocalDateTime.class);
+	public final StringPath name = createString("name");
+	
+	public final NumberPath<BigDecimal> price = createNumber("price", BigDecimal.class);
 
-//	public final ListPath<String, SimpleExpression<? super E>>
+	public final DateTimePath<LocalDateTime> publishTime = createDateTime("publishTime", LocalDateTime.class);
 
+//	public final ArrayPath<String, String> authors = createArray("authors", String.class);
+	
 	public void initMetaData() {
 
 		addMetadata(id, ColumnMetadata.named("id").ofType(Types.BIGINT).withSize(20));
+		addMetadata(name, ColumnMetadata.named("name").ofType(Types.VARCHAR).withSize(45));
+		addMetadata(no, ColumnMetadata.named("no").ofType(Types.INTEGER).withSize(11));
+		addMetadata(price, ColumnMetadata.named("price").ofType(Types.DECIMAL).withDigits(0));
+		addMetadata(publishTime, ColumnMetadata.named("publish_time").ofType(Types.TIMESTAMP).withSize(19));
 	}
 
 	public QBookOrder(String variable) {
 
-		super(BookOrder.class, forVariable(variable), "null", "book_order");
+		super(BookOrder.class, forVariable(variable), "toby_db", "book_order");
+		initMetaData();
 	}
 
 	public QBookOrder(Class<? extends BookOrder> type, String variable, String schema, String table) {
 
 		super(type, variable, schema, table);
+		initMetaData();
 	}
 
 	public QBookOrder(String variable, String schema, String table) {

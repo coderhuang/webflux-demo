@@ -9,10 +9,12 @@ import java.time.LocalDateTime;
 import javax.annotation.Generated;
 
 import com.example.demo.model.BookOrder;
+import com.example.demo.type.enums.OrderStatus;
 import com.querydsl.core.types.Path;
 import com.querydsl.core.types.PathMetadata;
 import com.querydsl.core.types.dsl.DateTimePath;
 import com.querydsl.core.types.dsl.NumberPath;
+import com.querydsl.core.types.dsl.SimplePath;
 import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.sql.ColumnMetadata;
 import com.querydsl.sql.RelationalPathBase;
@@ -33,6 +35,8 @@ public class QBookOrder extends RelationalPathBase<BookOrder> {
 	public final StringPath name = createString("name");
 	
 	public final NumberPath<BigDecimal> price = createNumber("price", BigDecimal.class);
+	
+	public final SimplePath<OrderStatus> status = createSimple("status", OrderStatus.class);
 
 	public final DateTimePath<LocalDateTime> publishTime = createDateTime("publishTime", LocalDateTime.class);
 
@@ -44,6 +48,8 @@ public class QBookOrder extends RelationalPathBase<BookOrder> {
 		addMetadata(name, ColumnMetadata.named("name").ofType(Types.VARCHAR).withSize(45));
 		addMetadata(no, ColumnMetadata.named("no").ofType(Types.INTEGER).withSize(11));
 		addMetadata(price, ColumnMetadata.named("price").ofType(Types.DECIMAL).withDigits(0));
+		addMetadata(status, ColumnMetadata.named("status").ofType(Types.TINYINT).withSize(4));
+//		addMetadata(authors, ColumnMetadata.named("authors").ofType(Types.VARCHAR).withSize(128));
 		addMetadata(publishTime, ColumnMetadata.named("publish_time").ofType(Types.TIMESTAMP).withSize(19));
 	}
 

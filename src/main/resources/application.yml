@@ -11,7 +11,7 @@ spring:
     name: toby-flux-demo
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3406/toby_db?tinyInt1isBit=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT&useSSL=true
+    url: jdbc:mysql://localhost:3406/toby_db?tinyInt1isBit=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT&useSSL=false
     username: root
     password: 123456
     type: com.zaxxer.hikari.HikariDataSource

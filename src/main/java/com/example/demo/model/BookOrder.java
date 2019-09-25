@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 
 import javax.annotation.Generated;
 
+import com.example.demo.type.enums.OrderStatus;
+
 @Generated("com.querydsl.codegen.BeanSerializer")
 public class BookOrder {
 
@@ -17,6 +19,8 @@ public class BookOrder {
 	private BigDecimal price;
 
 	private String authors;
+	
+	private OrderStatus status;
 
 	private LocalDateTime publishTime;
 
@@ -58,6 +62,14 @@ public class BookOrder {
 
 	public void setAuthors(String authors) {
 		this.authors = authors;
+	}
+
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
 	}
 
 	public LocalDateTime getPublishTime() {

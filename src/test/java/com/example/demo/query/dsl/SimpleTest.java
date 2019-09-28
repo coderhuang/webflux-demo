@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.model.BookOrder;
 import com.example.demo.query.QBookOrder;
 import com.example.demo.type.enums.OrderStatus;
+import com.example.demo.utils.TestUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.sql.SQLQueryFactory;
@@ -56,7 +57,13 @@ public class SimpleTest {
 	@Rollback(false)
 	public void querySimpleTest() {
 
-		
+		var orderList = sqlQueryFactory
+				.selectFrom(qBookOrder)
+//				.query()
+//				.select(qBookOrder.all())
+//				.from(qBookOrder)
+				.fetch();
+		TestUtils.printProperty(BookOrder.class, orderList);
 	}
 	
 	@Test
@@ -83,6 +90,7 @@ public class SimpleTest {
 		insert.populate(bookOrder)
 				.addBatch();
 		
+		insert.getSQL().forEach(binding -> System.err.println(binding.getSQL()));
 		long ac = insert.execute();
 		System.err.println(ac);
 	}
@@ -94,7 +102,6 @@ public class SimpleTest {
 
 		long ac = sqlQueryFactory.delete(qBookOrder).where(qBookOrder.name.eq("测试-1sdf")).execute();
 		System.err.println(ac);
-
 	}
 
 	@Test

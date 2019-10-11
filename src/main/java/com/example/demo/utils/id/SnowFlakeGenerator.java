@@ -7,12 +7,12 @@ package com.example.demo.utils.id;
  * @author toby
  *
  */
-public class SnowFlakeGenerator {
+public final class SnowFlakeGenerator {
 	
 	private SnowFlakeGenerator() {}
 
 	// 符号标志位
-	private static long FLAG_BIT = Long.MIN_VALUE;
+	private static final long FLAG_BIT = 0L;
 	
 	// 末尾数字所占位数
 	private static final int NUM_BITS = 12;
@@ -30,42 +30,43 @@ public class SnowFlakeGenerator {
 	private static final long START_STAMP = 1570542039201L;
 	
 	// 上一次请求的时间戳
-	private static long LAST_STAMP = -1L;
+	private static long lastStamp = -1L;
 	
 	// 只为测试代码，所以写一个固定值
-	private static long MACHINE_ID = 100 << NUM_BITS;
+	private static long machineId = 100 << NUM_BITS;
 	
-	private static long SEQUENCE_NO = -1L;
+	private static long sequenceNo = -1L;
 	
 	public static synchronized long nextId() {
 		
 		long currentStamp = currentStamp();
-		if (currentStamp > LAST_STAMP) {
+		if (currentStamp > lastStamp) {
 			// 更新时间
-			LAST_STAMP = currentStamp;
-			SEQUENCE_NO = -1L;
-		} else if (currentStamp < LAST_STAMP) {
+			lastStamp = currentStamp;
+			sequenceNo = -1L;
+		} else if (currentStamp < lastStamp) {
 			
-			if (currentStamp - LAST_STAMP > 1000L) {
+			if (currentStamp - lastStamp > 1000L) {
 				
 				throw new IllegalStateException("System time go back too much");
 			}
 			
-			// 等待时间戳超过缓存的时间戳
-			currentStamp = nextMillis();
-			LAST_STAMP = currentStamp;
+			while (currentStamp < lastStamp) {
+				// 等待时间戳超过缓存的时间戳
+				currentStamp = nextMillis();
+			}
+			lastStamp = currentStamp;
 		}
 		
-		SEQUENCE_NO = (++SEQUENCE_NO) & NUM_MASK;
-		if (SEQUENCE_NO == 0L) {
+		sequenceNo = (++sequenceNo) & NUM_MASK;
+		if (sequenceNo == 0L) {
 			// 溢出数字位的最大值
-			LAST_STAMP = nextMillis();
-			SEQUENCE_NO = (++SEQUENCE_NO) & NUM_MASK;
+			lastStamp = nextMillis();
+			sequenceNo = (++sequenceNo) & NUM_MASK;
 		}
 		
-		long stamp = LAST_STAMP - START_STAMP;
-		return FLAG_BIT | (stamp << STAMP_LEFT_BITS) | MACHINE_ID | SEQUENCE_NO;
-		
+		long stamp = lastStamp - START_STAMP;
+		return FLAG_BIT | (stamp << STAMP_LEFT_BITS) | machineId | sequenceNo;
 	}
 	
 	private static long currentStamp() {
@@ -76,7 +77,7 @@ public class SnowFlakeGenerator {
 	private static long nextMillis() {
 		
 		long currentStamp = currentStamp();
-		while (currentStamp <= LAST_STAMP) {
+		while (currentStamp <= lastStamp) {
 			currentStamp = currentStamp();
 		}
 		

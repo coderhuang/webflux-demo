@@ -11,7 +11,8 @@ public class SnowFlakeTest {
 		
 		for (int i = 0; i < 10; i++) {
 			
-			System.err.println(SnowFlakeGenerator.nextId());
+			long id = SnowFlakeGenerator.nextId();
+			System.err.println(id);
 		}
 	}
 }

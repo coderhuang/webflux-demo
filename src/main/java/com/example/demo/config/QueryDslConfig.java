@@ -45,11 +45,12 @@ public class QueryDslConfig {
 	public com.querydsl.sql.Configuration querydslConfiguration() {
 
 		SQLTemplates templates = MySQLTemplates.builder().printSchema()
-//        		.quote()
+				// to quote names
+        		.quote()
 				// to replace new lines with single space in the output
 				.newLineToSingleSpace()
 				// to set the escape char
-//        	    .escape('`')
+        	    .escape('`')
 				.build();
 		com.querydsl.sql.Configuration configuration = new com.querydsl.sql.Configuration(templates);
 		configuration.setExceptionTranslator(new SpringExceptionTranslator());

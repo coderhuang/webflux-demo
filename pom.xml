@@ -120,6 +120,11 @@
 			<artifactId>commons-collections</artifactId>
 			<version>3.2.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.5.5</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -143,9 +148,12 @@
 				<configuration>
 					<jdbcDriver>com.mysql.cj.jdbc.Driver</jdbcDriver>
 					<jdbcUrl>
-						<![CDATA[jdbc:mysql://localhost:3406/toby_db?user=root&password=admin&tinyInt1isBit=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=FALSE]]>
+						<![CDATA[jdbc:mysql://localhost:3406/toby_db?user=root&password=123456&tinyInt1isBit=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=FALSE]]>
 					</jdbcUrl>
-					<packageName>com.example.demo.model</packageName>
+					<exportBeans>true</exportBeans>
+					<beanPackageName>com.example.demo.model</beanPackageName>
+					<packageName>com.example.demo.model.query</packageName>
+					<beanAddToString>true</beanAddToString>
 					<targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
 					<test-export>${project.basedir}/target/generated-test-sources/java</test-export>
 				</configuration>

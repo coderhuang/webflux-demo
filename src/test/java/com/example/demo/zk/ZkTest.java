@@ -32,7 +32,7 @@ public class ZkTest {
 		@Override
 		public void process(WatchedEvent event) {
 
-			System.err.println("zk watch callback execute");
+			System.err.println("zk watch callback execute\n");
 			if (event.getType().equals(EventType.NodeCreated)) {
 
 				System.err.println("创建事件");

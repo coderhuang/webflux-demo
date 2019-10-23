@@ -148,8 +148,10 @@
 				<configuration>
 					<jdbcDriver>com.mysql.cj.jdbc.Driver</jdbcDriver>
 					<jdbcUrl>
-						<![CDATA[jdbc:mysql://localhost:3406/toby_db?user=root&password=123456&tinyInt1isBit=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=FALSE]]>
+						<![CDATA[jdbc:mysql://localhost:3406/toby_db?tinyInt1isBit=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=FALSE]]>
 					</jdbcUrl>
+					<jdbcUser>root</jdbcUser>
+					<jdbcPassword>123456</jdbcPassword>
 					<exportBeans>true</exportBeans>
 					<beanPackageName>com.example.demo.model</beanPackageName>
 					<packageName>com.example.demo.model.query</packageName>

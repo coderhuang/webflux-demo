@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.junit.Test;
 
@@ -22,10 +24,12 @@ public class SnowFlakeTest {
 		Long[] idArray = new Long[threadCount * perThread];
 		AtomicInteger ai = new AtomicInteger(0);
 		CountDownLatch latch = new CountDownLatch(threadCount);
+		ExecutorService es = Executors.newFixedThreadPool(threadCount);
+		
 		LocalDateTime startTime = LocalDateTime.now();
 		for (int i = 0; i < threadCount; i++) {
 			
-			new Thread(() -> {
+			es.execute(() -> {
 				
 				for (int j = 0; j < perThread; j++) {
 					
@@ -33,11 +37,11 @@ public class SnowFlakeTest {
 					idArray[ai.getAndIncrement()] = id;
 				}
 				latch.countDown();
-			}).start();
+			});
 		}
-		
 		latch.await();
 		LocalDateTime endTime = LocalDateTime.now();
+		
 		System.err.println("耗时：" + Duration.between(startTime, endTime).toMillis()+ "毫秒");
 		HashSet<Long> idSet = new HashSet<>(threadCount * perThread * 2);
 		idSet.addAll(Arrays.asList(idArray));

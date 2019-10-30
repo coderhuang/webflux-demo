@@ -43,7 +43,7 @@ public final class SnowFlakeGenerator {
 		if (currentStamp > lastStamp) {
 			// 更新时间
 			lastStamp = currentStamp;
-			sequenceNo = -1L;
+			sequenceNo = 0L;
 		} else if (currentStamp < lastStamp) {
 			
 			if (currentStamp - lastStamp > 1000L) {

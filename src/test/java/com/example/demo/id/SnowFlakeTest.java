@@ -1,27 +1,47 @@
 package com.example.demo.id;
 
-import java.util.ArrayList;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashSet;
 
 import org.junit.Test;
 
 import com.example.demo.utils.id.SnowFlakeGenerator;
 
+import edu.emory.mathcs.backport.java.util.concurrent.CountDownLatch;
+import edu.emory.mathcs.backport.java.util.concurrent.atomic.AtomicInteger;
+
 public class SnowFlakeTest {
 
 	@Test
-	public void generateIds() {
+	public void generateIds() throws InterruptedException {
 		
-		ArrayList<Long> idList = new ArrayList<>();
-		for (int i = 0; i < 100_0000; i++) {
+		int threadCount = 1000;
+		int perThread = 10000;
+		Long[] idArray = new Long[threadCount * perThread];
+		AtomicInteger ai = new AtomicInteger(0);
+		CountDownLatch latch = new CountDownLatch(threadCount);
+		LocalDateTime startTime = LocalDateTime.now();
+		for (int i = 0; i < threadCount; i++) {
 			
-			long id = SnowFlakeGenerator.nextId();
-			System.err.println(id);
-			idList.add(id);
+			new Thread(() -> {
+				
+				for (int j = 0; j < perThread; j++) {
+					
+					long id = SnowFlakeGenerator.nextId();
+					idArray[ai.getAndIncrement()] = id;
+				}
+				latch.countDown();
+			}).start();
 		}
 		
-		HashSet<Long> idSet = new HashSet<>();
-		idSet.addAll(idList);
+		latch.await();
+		LocalDateTime endTime = LocalDateTime.now();
+		System.err.println("耗时：" + Duration.between(startTime, endTime).toMillis()+ "毫秒");
+		HashSet<Long> idSet = new HashSet<>(threadCount * perThread * 2);
+		idSet.addAll(Arrays.asList(idArray));
+		System.err.println("生成id个数："+ idArray.length);
 		System.err.println("不重复的元素个数：" + idSet.size());
 	}
 }

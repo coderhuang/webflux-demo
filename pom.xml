@@ -156,6 +156,7 @@
 					<beanPackageName>com.example.demo.model</beanPackageName>
 					<packageName>com.example.demo.model.query</packageName>
 					<beanAddToString>true</beanAddToString>
+					<exportViews>false</exportViews>
 					<targetFolder>${project.basedir}/target/generated-sources/java</targetFolder>
 					<test-export>${project.basedir}/target/generated-test-sources/java</test-export>
 				</configuration>

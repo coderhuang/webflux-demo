@@ -44,7 +44,8 @@ public class QueryDslConfig {
 	@Bean
 	public com.querydsl.sql.Configuration querydslConfiguration() {
 
-		SQLTemplates templates = MySQLTemplates.builder().printSchema()
+		SQLTemplates templates = MySQLTemplates.builder()
+				.printSchema()
 				// to quote names
         		.quote()
 				// to replace new lines with single space in the output

@@ -14,10 +14,10 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-@Configuration
+//@Configuration
 public class RestTemplateConfig {
 
-	@Bean
+//	@Bean
 	public RestTemplate restTemplate(ClientHttpRequestFactory clientHttpRequestFactory,
 			@Autowired @Qualifier("devopsCenterMappingJackson2HttpMessageConverter") MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter) {
 

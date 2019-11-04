@@ -22,6 +22,7 @@ import com.example.demo.type.enums.OrderStatus;
 import com.example.demo.utils.TestUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.sql.SQLQueryFactory;
 import com.querydsl.sql.dml.DefaultMapper;
 import com.querydsl.sql.dml.SQLInsertClause;
@@ -57,39 +58,37 @@ public class SimpleTest {
 	@Rollback(false)
 	public void querySimpleTest() {
 
-		var orderList = sqlQueryFactory
-				.selectFrom(qBookOrder)
+		var orderList = sqlQueryFactory.selectFrom(qBookOrder)
+				.where(
+						Expressions.booleanTemplate("{0} & {1} = {2}", qBookOrder.no.getMetadata().getName(), 1, 1)
+						.and(qBookOrder.status.eq(OrderStatus.INIT)))
+				.where(qBookOrder.id.gt(1L))
 //				.query()
 //				.select(qBookOrder.all())
 //				.from(qBookOrder)
 				.fetch();
 		TestUtils.printProperty(BookOrder.class, orderList);
 	}
-	
+
 	@Test
 	@Transactional
 	@Rollback(false)
 	public void batchTest() {
 
 		SQLInsertClause insert = sqlQueryFactory.insert(qBookOrder);
-		
-		insert.set(qBookOrder.name, "你猜一猜")
-				.set(qBookOrder.price, new BigDecimal("123456789.123456"))
-				.set(qBookOrder.publishTime, LocalDateTime.now())
-				.set(qBookOrder.no, 123)
-				.set(qBookOrder.status, OrderStatus.SAILING)
-				.addBatch();
-		
+
+		insert.set(qBookOrder.name, "你猜一猜").set(qBookOrder.price, new BigDecimal("123456789.123456"))
+				.set(qBookOrder.publishTime, LocalDateTime.now()).set(qBookOrder.no, 123)
+				.set(qBookOrder.status, OrderStatus.SAILING).addBatch();
+
 		insert.columns(qBookOrder.name, qBookOrder.price, qBookOrder.no, qBookOrder.publishTime)
-				.values("阿拉同你港", new BigDecimal("123.123"), 123, LocalDateTime.now())
-				.addBatch();
-		
+				.values("阿拉同你港", new BigDecimal("123.123"), 123, LocalDateTime.now()).addBatch();
+
 		var bookOrder = newBookOrder();
 		bookOrder.setName("你黑边个");
 		bookOrder.setStatus(OrderStatus.PROMOTION);
-		insert.populate(bookOrder)
-				.addBatch();
-		
+		insert.populate(bookOrder).addBatch();
+
 		insert.getSQL().forEach(binding -> System.err.println(binding.getSQL()));
 		long ac = insert.execute();
 		System.err.println(ac);

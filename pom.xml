@@ -139,11 +139,11 @@
 				<artifactId>querydsl-maven-plugin</artifactId>
 				<version>${querydsl.version}</version>
 				<executions>
-					<execution>
+					<!-- <execution>
 						<goals>
 							<goal>export</goal>
 						</goals>
-					</execution>
+					</execution> -->
 				</executions>
 				<configuration>
 					<jdbcDriver>com.mysql.cj.jdbc.Driver</jdbcDriver>

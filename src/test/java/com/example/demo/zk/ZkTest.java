@@ -19,7 +19,7 @@ import org.junit.Test;
 
 public class ZkTest {
 
-	private static final String CONNECT_STRING = "10.121.201.11:2181,10.121.201.21:2181," + "10.121.201.31:2181";
+	private static final String CONNECT_STRING = "10.121.201.11:2181,10.121.201.21:2181,10.121.201.31:2181";
 
 	private static final int SESSION_TIMEOUT = 30000;
 

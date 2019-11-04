@@ -60,7 +60,7 @@ public class SimpleTest {
 
 		var orderList = sqlQueryFactory.selectFrom(qBookOrder)
 				.where(
-						Expressions.booleanTemplate("{0} & {1} = {2}", qBookOrder.no.getMetadata().getName(), 1, 1)
+						Expressions.booleanTemplate(qBookOrder.no.getMetadata().getName() + " & {0} = {1}", 1, 1)
 						.and(qBookOrder.status.eq(OrderStatus.INIT)))
 				.where(qBookOrder.id.gt(1L))
 //				.query()

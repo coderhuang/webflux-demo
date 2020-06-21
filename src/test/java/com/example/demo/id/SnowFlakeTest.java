@@ -22,19 +22,23 @@ public class SnowFlakeTest {
 		int threadCount = 1000;
 		int perThread = 10000;
 		Long[] idArray = new Long[threadCount * perThread];
-		AtomicInteger ai = new AtomicInteger(0);
+//		AtomicInteger ai = new AtomicInteger(0);
 		CountDownLatch latch = new CountDownLatch(threadCount);
 		ExecutorService es = Executors.newFixedThreadPool(threadCount);
 		
 		LocalDateTime startTime = LocalDateTime.now();
 		for (int i = 0; i < threadCount; i++) {
 			
+			final int tempI = i;
 			es.execute(() -> {
 				
+				int threadNo = tempI;
+				int idxBase = threadNo * perThread;
 				for (int j = 0; j < perThread; j++) {
 					
 					long id = SnowFlakeGenerator.nextId();
-					idArray[ai.getAndIncrement()] = id;
+					// 划分区域,避免争抢
+					idArray[idxBase + j] = id;
 				}
 				latch.countDown();
 			});

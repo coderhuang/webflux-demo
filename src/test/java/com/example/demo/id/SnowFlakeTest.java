@@ -37,6 +37,7 @@ public class SnowFlakeTest {
 				for (int j = 0; j < perThread; j++) {
 					
 					long id = SnowFlakeGenerator.nextId();
+//					idArray[ai.getAndIncrement()] = id;
 					// 划分区域,避免争抢
 					idArray[idxBase + j] = id;
 				}

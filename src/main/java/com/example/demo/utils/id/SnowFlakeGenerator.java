@@ -39,7 +39,7 @@ public final class SnowFlakeGenerator {
 	// 上一次请求的时间戳
 	private static long lastStamp = -1L;
 	
-	private static long applicationId = applicationId();
+	private static long applicationId = applicationId() << NUM_BITS;
 	
 	private static long sequenceNo = -1L;
 	
